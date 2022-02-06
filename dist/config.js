@@ -75,6 +75,12 @@ class Config {
             yield Config.updateGuild(globalConfigDocumentId, newConfig);
         });
     }
+    static getSetting(guildId, key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const setting = Config.config[guildId][key];
+            return setting || Config.config.global[key];
+        });
+    }
 }
 exports.Config = Config;
 Config.config = { global: {} };

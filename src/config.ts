@@ -82,4 +82,10 @@ export class Config
   {
     await Config.updateGuild(globalConfigDocumentId, newConfig);
   }
+
+  static async getSetting(guildId: string, key: keyof ConfigType)
+  {
+    const setting = Config.config[guildId][key];
+    return setting || Config.config.global[key];
+  }
 };

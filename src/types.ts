@@ -18,7 +18,7 @@ export interface ConfigType
     prizes: number[];
   };
   roleRequestsApprovalChannel?: string;
-  enabledCommands?: string[];
+  enabledCommands?: string | string[];
   reactRepost?: {
     count?: number;
     channel?: string;
