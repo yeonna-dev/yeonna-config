@@ -35,6 +35,12 @@ class Config {
             loaded = true;
         });
     }
+    static all() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Config.checkLoaded();
+            return Config.config;
+        });
+    }
     static global() {
         return __awaiter(this, void 0, void 0, function* () {
             yield Config.checkLoaded();

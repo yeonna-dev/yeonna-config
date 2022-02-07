@@ -38,6 +38,12 @@ export class Config
     loaded = true;
   }
 
+  static async all()
+  {
+    await Config.checkLoaded();
+    return Config.config;
+  }
+
   static async global()
   {
     await Config.checkLoaded();

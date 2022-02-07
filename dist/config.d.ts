@@ -3,6 +3,7 @@ export declare class Config {
     static config: Configs;
     static checkLoaded(): Promise<void>;
     static load(): Promise<void>;
+    static all(): Promise<Configs>;
     static global(): Promise<ConfigType>;
     static ofGuild(guildId: string): Promise<ConfigType>;
     static setGuild(guildId: string, newConfig?: ConfigType): Promise<void>;
