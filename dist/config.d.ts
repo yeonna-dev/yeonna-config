@@ -17,6 +17,9 @@ export declare class Config {
         count?: number | undefined;
         channel?: string | undefined;
         color?: string | undefined;
+    } | {
+        list?: import("./types").Item[] | undefined;
+        collections?: import("./types").Collection[] | undefined;
     } | undefined>;
 }
 //# sourceMappingURL=config.d.ts.map

@@ -46,7 +46,7 @@ class Firestore {
     }
     static updateDocument(documentId, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, firestore_1.updateDoc)(documentInstance(documentId), data);
+            yield (0, firestore_1.setDoc)(documentInstance(documentId), data, { merge: true });
         });
     }
 }
