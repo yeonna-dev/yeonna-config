@@ -7,7 +7,6 @@ import
   getDocs,
   getFirestore,
   setDoc,
-  updateDoc,
 } from 'firebase/firestore';
 
 import { Document } from './types';
@@ -50,6 +49,6 @@ export class Firestore
 
   static async updateDocument(documentId: string, data: Partial<unknown>)
   {
-    await updateDoc(documentInstance(documentId), data);
+    await setDoc(documentInstance(documentId), data, { merge: true });
   }
 }
