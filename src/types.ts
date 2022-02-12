@@ -1,5 +1,12 @@
 import { DocumentData } from 'firebase/firestore';
 
+/* Firestore */
+export interface Document
+{
+  id: string;
+  data: DocumentData;
+}
+
 /* Config */
 export interface Configs
 {
@@ -19,16 +26,36 @@ export interface ConfigType
   };
   roleRequestsApprovalChannel?: string;
   enabledCommands?: string | string[];
-  reactRepost?: {
+  reactRepost?:
+  {
     count?: number;
     channel?: string;
     color?: string;
   };
+  items?:
+  {
+    list?: Item[];
+    collections?: Collection[];
+  };
 };
 
-/* Firestore */
-export interface Document
+/* Items */
+export interface Item
 {
-  id: string;
-  data: DocumentData;
+  code: string;
+  name: string;
+  chanceMin: number;
+  chanceMax: number;
+  price: number;
+  image?: string;
+  emote?: string;
+  categoryId?: string;
+}
+
+export interface Collection
+{
+  code: string;
+  name: string;
+  itemCodes: string[];
+  fixedBonus?: number;
 }
