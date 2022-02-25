@@ -18,21 +18,15 @@ export class Config
   static async load()
   {
     /* Load the configs from Firestore. */
-    const configs = await Firestore.getDocuments() || [];
-
-    const loadedConfig: { [key: string]: ConfigType; } = {};
-
-    /* Populate the config object with all the configs from Firestore. */
-    for(const config of configs)
-      loadedConfig[config.id] = config.data;
+    const configs: { [key: string]: ConfigType; } = await Firestore.getDocuments() || [];
 
     /* Initialize it if it's not yet created. */
-    if(!loadedConfig.global)
+    if(!configs.global)
       await Firestore.setDocument(globalConfigDocumentId, {});
 
     Config.config = {
       global: {},
-      ...loadedConfig
+      ...configs
     };
 
     loaded = true;
@@ -56,7 +50,10 @@ export class Config
 
     /* Initialize the guild config if not yet existing. */
     if(!Config.config[guildId])
+    {
       await Firestore.setDocument(guildId, {});
+      Config.config[guildId] = {};
+    }
 
     return Config.config[guildId];
   }
@@ -77,11 +74,8 @@ export class Config
   static async updateGuild(guildId: string, newConfig: ConfigType)
   {
     await Config.checkLoaded();
-    await Firestore.updateDocument(guildId, newConfig);
-    Config.config[guildId] = {
-      ...Config.config[guildId],
-      ...newConfig,
-    };
+    const updatedConfig = await Firestore.updateDocument(guildId, newConfig);
+    Config.config[guildId] = updatedConfig as ConfigType;
   }
 
   static async updateGlobal(newConfig: ConfigType)

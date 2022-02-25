@@ -24,14 +24,10 @@ class Config {
         return __awaiter(this, void 0, void 0, function* () {
             /* Load the configs from Firestore. */
             const configs = (yield firestore_1.Firestore.getDocuments()) || [];
-            const loadedConfig = {};
-            /* Populate the config object with all the configs from Firestore. */
-            for (const config of configs)
-                loadedConfig[config.id] = config.data;
             /* Initialize it if it's not yet created. */
-            if (!loadedConfig.global)
+            if (!configs.global)
                 yield firestore_1.Firestore.setDocument(globalConfigDocumentId, {});
-            Config.config = Object.assign({ global: {} }, loadedConfig);
+            Config.config = Object.assign({ global: {} }, configs);
             loaded = true;
         });
     }
@@ -51,8 +47,10 @@ class Config {
         return __awaiter(this, void 0, void 0, function* () {
             yield Config.checkLoaded();
             /* Initialize the guild config if not yet existing. */
-            if (!Config.config[guildId])
+            if (!Config.config[guildId]) {
                 yield firestore_1.Firestore.setDocument(guildId, {});
+                Config.config[guildId] = {};
+            }
             return Config.config[guildId];
         });
     }
@@ -72,8 +70,8 @@ class Config {
     static updateGuild(guildId, newConfig) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Config.checkLoaded();
-            yield firestore_1.Firestore.updateDocument(guildId, newConfig);
-            Config.config[guildId] = Object.assign(Object.assign({}, Config.config[guildId]), newConfig);
+            const updatedConfig = yield firestore_1.Firestore.updateDocument(guildId, newConfig);
+            Config.config[guildId] = updatedConfig;
         });
     }
     static updateGlobal(newConfig) {

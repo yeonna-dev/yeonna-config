@@ -3,13 +3,12 @@ import
 {
   collection,
   doc,
+  DocumentData,
   getDoc,
   getDocs,
   getFirestore,
   setDoc,
 } from 'firebase/firestore';
-
-import { Document } from './types';
 
 const firebase = initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,
@@ -28,11 +27,8 @@ export class Firestore
   static async getDocuments()
   {
     const querySnapshot = await getDocs(collectionInstance());
-    const documents: Document[] = [];
-    querySnapshot.forEach(document => documents.push({
-      id: document.id,
-      data: document.data(),
-    }));
+    const documents: { [key: string]: DocumentData; } = {};
+    querySnapshot.forEach(document => documents[document.id] = document.data());
     return documents;
   }
 
@@ -45,10 +41,14 @@ export class Firestore
   static async setDocument(documentId: string, data: unknown)
   {
     await setDoc(documentInstance(documentId), data);
+    const document = await Firestore.getDocument(documentId);
+    return document.data();
   }
 
   static async updateDocument(documentId: string, data: Partial<unknown>)
   {
     await setDoc(documentInstance(documentId), data, { merge: true });
+    const document = await Firestore.getDocument(documentId);
+    return document.data();
   }
 }

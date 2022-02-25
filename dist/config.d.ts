@@ -10,16 +10,25 @@ export declare class Config {
     static setGlobal(newConfig?: ConfigType): Promise<void>;
     static updateGuild(guildId: string, newConfig: ConfigType): Promise<void>;
     static updateGlobal(newConfig: ConfigType): Promise<void>;
-    static getSetting(guildId: string, key: keyof ConfigType): Promise<string | {
+    static getSetting(guildId: string, key: keyof ConfigType): Promise<string | string[] | {
         channel: string;
         prizes: number[];
-    } | string[] | {
+    } | {
         count?: number | undefined;
         channel?: string | undefined;
         color?: string | undefined;
     } | {
         list?: import("./types").Item[] | undefined;
         collections?: import("./types").Collection[] | undefined;
+    } | {
+        wheelSpin: {
+            reward: number;
+            choices: {
+                code: string;
+                name: string;
+                reward?: number | undefined;
+            }[];
+        };
     } | undefined>;
 }
 //# sourceMappingURL=config.d.ts.map

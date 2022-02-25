@@ -8,12 +8,17 @@ const sampleGlobalConfig: ConfigType = {
   pointsName: 'points',
 };
 
+const sampleTextChannel = 'test-channel';
+
 const sampleGuildConfig: ConfigType = {
-  prefix: ';',
+  mostCollectiblesReward:
+  {
+    channel: sampleTextChannel,
+    prizes: [1, 2, 3, 4, 5, 6, 7, 9, 10],
+  },
   pointsName: 'guild-points',
 };
 
-const sampleRoleRequestsApprovalChannel = 'test-channel';
 
 test('Should throw an error if the config is not loaded', () =>
 {
@@ -93,7 +98,7 @@ test('Should set the config of a guild by mutating the current config of the gui
 
 test('Should update one property of the global config', async () =>
 {
-  const newConfig: ConfigType = { roleRequestsApprovalChannel: sampleRoleRequestsApprovalChannel };
+  const newConfig: ConfigType = { roleRequestsApprovalChannel: sampleTextChannel };
   await Config.updateGlobal(newConfig);
   const globalConfig = await Config.global();
   expect(globalConfig).toMatchObject(newConfig);
@@ -101,8 +106,14 @@ test('Should update one property of the global config', async () =>
 
 test('Should update one property of a guild config', async () =>
 {
-  const newConfig: ConfigType = { prefix: '!' };
-  await Config.updateGuild(sampleDiscordGuildId, newConfig);
+  const newConfig =
+  {
+    mostCollectiblesReward:
+    {
+      prizes: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+    }
+  };
+  await Config.updateGuild(sampleDiscordGuildId, newConfig as ConfigType);
   const guildConfig = await Config.ofGuild(sampleDiscordGuildId);
   expect(guildConfig).toMatchObject(newConfig);
 });
@@ -110,5 +121,5 @@ test('Should update one property of a guild config', async () =>
 test('Should get a specific setting from the global config if not in a guild config', async () =>
 {
   const setting = await Config.getSetting(sampleDiscordGuildId, 'roleRequestsApprovalChannel');
-  expect(setting).toBe(sampleRoleRequestsApprovalChannel);
+  expect(setting).toBe(sampleTextChannel);
 });

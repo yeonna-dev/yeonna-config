@@ -25,11 +25,8 @@ class Firestore {
     static getDocuments() {
         return __awaiter(this, void 0, void 0, function* () {
             const querySnapshot = yield (0, firestore_1.getDocs)(collectionInstance());
-            const documents = [];
-            querySnapshot.forEach(document => documents.push({
-                id: document.id,
-                data: document.data(),
-            }));
+            const documents = {};
+            querySnapshot.forEach(document => documents[document.id] = document.data());
             return documents;
         });
     }
@@ -42,11 +39,15 @@ class Firestore {
     static setDocument(documentId, data) {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, firestore_1.setDoc)(documentInstance(documentId), data);
+            const document = yield Firestore.getDocument(documentId);
+            return document.data();
         });
     }
     static updateDocument(documentId, data) {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, firestore_1.setDoc)(documentInstance(documentId), data, { merge: true });
+            const document = yield Firestore.getDocument(documentId);
+            return document.data();
         });
     }
 }
