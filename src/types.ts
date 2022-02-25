@@ -37,6 +37,14 @@ export interface ConfigType
     list?: Item[];
     collections?: Collection[];
   };
+  miniGames?:
+  {
+    wheelSpin:
+    {
+      reward: number;
+      choices: { code: string, name: string, reward?: number; }[];
+    };
+  };
 };
 
 /* Items */

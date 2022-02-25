@@ -26,6 +26,16 @@ export interface ConfigType {
         list?: Item[];
         collections?: Collection[];
     };
+    miniGames?: {
+        wheelSpin: {
+            reward: number;
+            choices: {
+                code: string;
+                name: string;
+                reward?: number;
+            }[];
+        };
+    };
 }
 export interface Item {
     code: string;
