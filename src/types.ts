@@ -45,6 +45,11 @@ export interface ConfigType
       choices: { code: string, name: string, reward?: number; }[];
     };
   };
+  streaks?:
+  {
+    name: string;
+    roles: { [key: number]: string; };
+  };
 };
 
 /* Items */
