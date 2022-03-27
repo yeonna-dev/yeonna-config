@@ -1,16 +1,17 @@
 {
   "name": "yeonna-config",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Yeonna config module",
   "author": "osairis100@gmail.com",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -r dist && tsc",
+    "build": "tsc -b",
     "build:watch": "tsc --watch",
     "dev": "concurrently -n Compile,Test 'npm run build:watch' 'npm run test:watch'",
     "test": "jest --verbose --detectOpenHandles",
-    "test:watch": "jest --watch --detectOpenHandles"
+    "test:watch": "jest --watch --detectOpenHandles",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "firebase": "^9.6.6"
