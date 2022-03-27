@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc",
     "build:watch": "tsc --watch",
     "dev": "concurrently -n Compile,Test 'npm run build:watch' 'npm run test:watch'",
     "test": "jest --verbose --detectOpenHandles",
