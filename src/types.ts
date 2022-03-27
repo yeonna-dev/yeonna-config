@@ -17,6 +17,8 @@ export interface Configs
 export interface ConfigType
 {
   prefix?: string;
+  enabledCommands?: string | string[];
+  commandAliases?: { [key: string]: string[]; },
   pointsName?: string;
   collectiblesName?: string;
   mostCollectiblesReward?:
@@ -25,7 +27,6 @@ export interface ConfigType
     prizes: number[];
   };
   roleRequestsApprovalChannel?: string;
-  enabledCommands?: string | string[];
   reactRepost?:
   {
     count?: number;
