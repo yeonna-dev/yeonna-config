@@ -19,6 +19,11 @@ export declare class Config {
         count?: number | undefined;
         channel?: string | undefined;
         color?: string | undefined;
+        emote?: string | undefined;
+        approval?: {
+            emote: string;
+            approvers: string[];
+        } | undefined;
     } | {
         list?: import("./types").Item[] | undefined;
         collections?: import("./types").Collection[] | undefined;

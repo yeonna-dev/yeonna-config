@@ -32,6 +32,12 @@ export interface ConfigType
     count?: number;
     channel?: string;
     color?: string;
+    emote?: string;
+    approval?:
+    {
+      emote: string;
+      approvers: string[];
+    };
   };
   items?:
   {
