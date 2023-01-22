@@ -10,8 +10,7 @@
     "build:watch": "tsc --watch",
     "dev": "concurrently -n Compile,Test 'npm run build:watch' 'npm run test:watch'",
     "test": "jest --verbose --detectOpenHandles",
-    "test:watch": "jest --watch --detectOpenHandles",
-    "prepare": "npm run build"
+    "test:watch": "jest --watch --detectOpenHandles"
   },
   "dependencies": {
     "firebase": "^9.6.6"
